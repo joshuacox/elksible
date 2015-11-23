@@ -1,0 +1,45 @@
+---
+- name: elksible
+  vars:
+     port_contents: "{{ lookup('file', 'port') }}"
+     NAME_contents: "{{ lookup('file', 'NAME') }}"
+  hosts: "{{ NAME_contents }}"
+  sudo: True
+  tasks:
+  - name: Elastic Search
+    docker:
+      name: "{{ NAME_contents }}-es"
+      image: elasticsearch:latest
+      state: reloaded
+      restart_policy: always
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+        - "9200:9200/udp"
+        - "9300:9300/udp"
+  - name: Logstash
+    docker:
+      name: "{{ NAME_contents }}-logstash"
+      image: pblittle/docker-logstash
+      state: reloaded
+      restart_policy: always
+      links:
+        - "{{ NAME_contents }}-es:es"
+      env:
+        LOGSTASH_CONFIG_URL: "https://raw.githubusercontent.com/joshuacox/confstash/master/logstash.conf"
+      ports:
+        - "9292:9292"
+        - "9997:9997"
+        - "9997:9997/udp"
+        - "9998:9998"
+        - "9999:9999/udp"
+  - name: Kibana
+    docker:
+      name: "{{ NAME_contents }}-kibana"
+      image: kibana
+      state: reloaded
+      restart_policy: always
+      links:
+        - "{{ NAME_contents }}-es:elasticsearch"
+      ports:
+        - "{{ port_contents }}:5601"
