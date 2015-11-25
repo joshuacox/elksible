@@ -18,6 +18,8 @@
         - "9300:9300"
         - "9200:9200/udp"
         - "9300:9300/udp"
+      volumes:
+        - "/exports/elksible-es:/usr/share/elasticsearch/data"
   - name: Logstash
     docker:
       name: "{{ NAME_contents }}-logstash"
