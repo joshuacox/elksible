@@ -5,7 +5,7 @@ help:
 	@echo "-- Help Menu"
 	@echo ""   1. make server       - run server
 
-server: port serverplay
+server: NAME TAG port serverplay
 
 serverplay:
 	ansible-playbook `cat NAME`.yml

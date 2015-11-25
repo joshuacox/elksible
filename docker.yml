@@ -3,7 +3,8 @@
   vars:
      NAME_contents: "{{ lookup('file', 'NAME') }}"
   hosts: "{{ NAME_contents }}"
-  sudo: True
+  become: True
+  become_method: sudo
   tasks:
   - name: update_cache
     apt: update_cache=yes cache_valid_time=3600

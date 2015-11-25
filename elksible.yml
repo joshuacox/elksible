@@ -4,7 +4,8 @@
      port_contents: "{{ lookup('file', 'port') }}"
      NAME_contents: "{{ lookup('file', 'NAME') }}"
   hosts: "{{ NAME_contents }}"
-  sudo: True
+  become: True
+  become_method: sudo
   tasks:
   - name: Elastic Search
     docker:
@@ -20,19 +21,25 @@
   - name: Logstash
     docker:
       name: "{{ NAME_contents }}-logstash"
-      image: pblittle/docker-logstash
+      image: logstash
       state: reloaded
       restart_policy: always
+      expose:
+        - "9292"
+        - "9997"
+        - "9998"
+        - "9999"
+      ports:
+        - "0.0.0.0:9292:9292"
+        - "0.0.0.0:9997:9997"
+        - "0.0.0.0:9997:9997/udp"
+        - "0.0.0.0:9998:9998"
+        - "0.0.0.0:9999:9999/udp"
       links:
         - "{{ NAME_contents }}-es:es"
-      env:
-        LOGSTASH_CONFIG_URL: "https://raw.githubusercontent.com/joshuacox/confstash/master/logstash.conf"
-      ports:
-        - "9292:9292"
-        - "9997:9997"
-        - "9997:9997/udp"
-        - "9998:9998"
-        - "9999:9999/udp"
+      volumes:
+        - "/exports/git/confstash:/conf-dir"
+      command: 'logstash -f /conf-dir/logstash.conf'
   - name: Kibana
     docker:
       name: "{{ NAME_contents }}-kibana"
