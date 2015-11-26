@@ -3,6 +3,7 @@
   vars:
      port_contents: "{{ lookup('file', 'port') }}"
      NAME_contents: "{{ lookup('file', 'NAME') }}"
+     DATA_DIR_contents: "{{ lookup('file', 'DATA_DIR') }}"
   hosts: "{{ NAME_contents }}"
   become: True
   become_method: sudo
@@ -19,7 +20,7 @@
         - "9200:9200/udp"
         - "9300:9300/udp"
       volumes:
-        - "/exports/elksible-es:/usr/share/elasticsearch/data"
+        - "{{ DATA_DIR_contents }}:/usr/share/elasticsearch/data"
   - name: Logstash
     docker:
       name: "{{ NAME_contents }}-logstash"

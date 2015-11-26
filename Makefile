@@ -32,3 +32,8 @@ TAG:
 	@while [ -z "$$TAG" ]; do \
 		read -r -p "Enter the name you wish to associate with this container [TAG]: " TAG; echo "$$TAG">>TAG; cat TAG; \
 	done ;
+
+DATA_DIR:
+	@while [ -z "$$DATA_DIR" ]; do \
+		read -r -p "Enter the name you wish to associate with this container [DATA_DIR]: " DATA_DIR; echo "$$DATA_DIR">>DATA_DIR; cat DATA_DIR; \
+	done ;
