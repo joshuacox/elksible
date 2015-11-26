@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Elksible by joshuacox</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Elksible</h1>
+        <h2>ELK stack in docker containers brought up by ansible</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/joshuacox/elksible/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/joshuacox/elksible/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/joshuacox/elksible" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="elksible" class="anchor" href="#elksible" aria-hidden="true"><span class="octicon octicon-link"></span></a>elksible</h1>
+
+<p>ELK stack in docker containers brought up by ansible</p>
+
+<p><code>make server</code> is the intended use, it will prompt you for a port and data directory, you will need to ensure the port is open on the host and that the data directory is present and writable </p>
+
+<p>you’ll need an inventory file in /etc/ansible/hosts with some lines like:</p>
+
+<pre><code>elkhost ansible_ssh_port=22 ansible_ssh_host=127.0.0.1 ansible_ssh_user=root
+
+[elksible]
+elkhost
+</code></pre>
+
+<p>there are also the <code>make boostrap</code> and <code>make docker</code> recipes these will bootstrap ansible (i.e. install python and ansible) and install docker on a debian host respectively</p>
+      </section>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-69335315-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
