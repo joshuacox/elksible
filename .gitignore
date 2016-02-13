@@ -1,3 +1,6 @@
 PORT
 DATA_DIR
 inventory
+roles
+.prepcoreos
+.coreosbootstrapped

@@ -1,0 +1,11 @@
+- hosts: coreos
+  gather_facts: False
+  roles:
+    - defunctzombie.coreos-bootstrap
+
+- hosts: coreos
+  gather_facts: False
+  become: True
+  become_method: sudo
+  roles:
+    - defunctzombie.coreos-bootstrap
